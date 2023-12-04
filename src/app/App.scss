@@ -135,6 +135,13 @@ input {
 
 .game-link {
   padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input {
+    margin: 10px 0;
+  }
 }
 
 .header {
