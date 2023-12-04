@@ -272,7 +272,7 @@ function PopUp({ state, title, history, popup, setPopup }: {
                 }
                 <h3>Connections: {title}</h3>
                 <div id="emoji-recap">
-                    {history.map(round => <div className="emoji-row">{round.map(item => <div className={"emoji " + classNames[item]}></div>)}</div>)}
+                    {history.map((round, index) => <div key={index} className="emoji-row">{round.map((item, index) => <div key={index} className={"emoji " + classNames[item]}></div>)}</div>)}
                 </div>
                 <button onClick={copyToClipboard}>Share Your Results</button>
             </div>
