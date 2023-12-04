@@ -3,10 +3,12 @@ import { GameData, GameLevel, GameItem } from '../types';
 import Link from 'next/link';
 import '../App.scss';
 
-function Connections({ gameData }: { gameData: GameData }) {
+const URL = "https://custom-connections-game.vercel.app/";
+
+function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
     const [items, setItems] = useState<Array<GameItem>>([]);
     const [completed, setCompleted] = useState<Array<GameLevel>>([]);
-    const [history, setHistory] = useState<Array<Array<number>>>([]);
+    const [history, setHistory] = useState<Array<Array<GameItem>>>([]);
     const [numSelected, setNumSelected] = useState(0);
     const [mistakes, setMistakes] = useState(4);
     const [gameState, setGameState] = useState(0); // 0 playing, 1 is lost, 2 is won
@@ -92,8 +94,9 @@ function Connections({ gameData }: { gameData: GameData }) {
     }
 
     const checkSubmit = () => {
-        let levelsSelected: Array<number> = [];
-        let incorrect = 0;
+        let selected: Array<GameItem> = [];
+        let levelsSelected = [0,0,0,0];
+        let allCorrect = true;
         let level = -1;
         const newItems = [...items];
         newItems.forEach(item => {
@@ -101,12 +104,13 @@ function Connections({ gameData }: { gameData: GameData }) {
                 if (level < 0) {
                     level = item.level;
                 } else if (item.level !== level) {
-                    incorrect++;
+                    allCorrect = false;
                 }
-                levelsSelected.push(item.level);
+                levelsSelected[item.level]++;
+                selected.push(item);
             }
         });
-        if (incorrect === 0) {
+        if (allCorrect) {
             setCompleted([...completed, gameData.categories[level]]);
             newItems.sort((a, b) => {
                 if (a.selected) return -1;
@@ -119,7 +123,12 @@ function Connections({ gameData }: { gameData: GameData }) {
             setItems(newItems);
             setNumSelected(0);
         } else {
-            let oneAway = incorrect === 1 || incorrect === 3;
+            let oneAway = false;
+            levelsSelected.forEach(count => {
+                if (count === 3) {
+                    oneAway = true;
+                }
+            });
             newItems.forEach(item => { if (item.selected) item.mistake = true }); // set mistake class on item for animation
             setItems(newItems);
             if (oneAway) {
@@ -127,7 +136,7 @@ function Connections({ gameData }: { gameData: GameData }) {
             }
             setTimeout(() => removeMistake(), 1000);
         }
-        setHistory([...history, levelsSelected]);
+        setHistory([...history, selected]);
     }
 
     useEffect(() => {
@@ -167,7 +176,7 @@ function Connections({ gameData }: { gameData: GameData }) {
     return (
         <>
             <div id="toast" className={toast.length > 0 ? "show" : ""}><p>{toast}</p></div>
-            <PopUp state={gameState} title={gameData.title} history={history} popup={popup} setPopup={setPopup} />
+            <PopUp state={gameState} title={gameData.title} history={history} slug={slug} popup={popup} setPopup={setPopup} />
             <div className="header">
                 <div className="title">
                     <h1>Connections</h1>
@@ -234,10 +243,11 @@ function Item({ data, onSelect }: { data: GameItem, onSelect: () => void }) {
     );
 }
 
-function PopUp({ state, title, history, popup, setPopup }: {
+function PopUp({ state, title, history, slug, popup, setPopup }: {
     state: number,
     title: string,
-    history: Array<Array<number>>,
+    history: Array<Array<GameItem>>,
+    slug: string,
     popup: boolean,
     setPopup: (popup: boolean) => void,
 }) {
@@ -248,11 +258,12 @@ function PopUp({ state, title, history, popup, setPopup }: {
     const copyToClipboard = () => {
         let text = "Connections: " + title + "\n";
         for (const row of history) {
-            for (const level of row) {
-                text += emojis[level];
+            for (const item of row) {
+                text += emojis[item.level];
             }
             text += "\n";
         }
+        text += URL + slug;
         navigator.clipboard.writeText(text);
     }
 
@@ -272,7 +283,7 @@ function PopUp({ state, title, history, popup, setPopup }: {
                 }
                 <h3>Connections: {title}</h3>
                 <div id="emoji-recap">
-                    {history.map((round, index) => <div key={index} className="emoji-row">{round.map((item, index) => <div key={index} className={"emoji " + classNames[item]}></div>)}</div>)}
+                    {history.map((round, index) => <div key={index} className="emoji-row">{round.map((item, index) => <div key={index} className={"emoji " + classNames[item.level]}></div>)}</div>)}
                 </div>
                 <button onClick={copyToClipboard}>Share Your Results</button>
             </div>

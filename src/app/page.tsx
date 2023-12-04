@@ -70,7 +70,7 @@ export default function Home() {
       filled = false;
     }
     if (filled) {
-      const {result, error} = await addGame(data);
+      const { result, error } = await addGame(data);
       console.log(result);
       setSlug(result.id);
     } else {
@@ -80,113 +80,117 @@ export default function Home() {
 
   const copyToClipboard = (e: SyntheticEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText(URL+slug);
+    navigator.clipboard.writeText(URL + slug);
   }
 
   // console.log(data);
 
   return (
     <div className="container">
-      <h1>Custom Connections</h1>
+      <div className="container-header">
+        <h1>Custom Connections</h1>
+        <p>Create your own custom version of the NYT Connections game!</p>
+        <p>Not affiliated with the New York Times. Made by <a href="https://clawang.github.io/">Claire Wang</a>.</p>
+      </div>
       <form>
         <label>
           <h3>Title</h3>
-          <input type="text" value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
+          <input type="text" maxLength={30} value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
         </label>
         <h3>Categories</h3>
         <div className="category-form-wrapper">
           <label>
             <h4>Title</h4>
-            <input type="text" value={data.categories[0].title} onChange={(e) => handleChangeTitle(e.target.value, 0)} />
+            <input type="text" maxLength={50} value={data.categories[0].title} onChange={(e) => handleChangeTitle(e.target.value, 0)} />
           </label>
           <div className="category-items-wrapper">
             <label>
               <h4>Item 1</h4>
-              <input type="text" value={data.categories[0].members[0]} onChange={(e) => handleChangeItem(e.target.value, 0, 0)} />
+              <input type="text" maxLength={15} value={data.categories[0].members[0]} onChange={(e) => handleChangeItem(e.target.value, 0, 0)} />
             </label>
             <label>
               <h4>Item 2</h4>
-              <input type="text" value={data.categories[0].members[1]} onChange={(e) => handleChangeItem(e.target.value, 0, 1)} />
+              <input type="text" maxLength={15} value={data.categories[0].members[1]} onChange={(e) => handleChangeItem(e.target.value, 0, 1)} />
             </label>
             <label>
               <h4>Item 3</h4>
-              <input type="text" value={data.categories[0].members[2]} onChange={(e) => handleChangeItem(e.target.value, 0, 2)} />
+              <input type="text" maxLength={15} value={data.categories[0].members[2]} onChange={(e) => handleChangeItem(e.target.value, 0, 2)} />
             </label>
             <label>
               <h4>Item 4</h4>
-              <input type="text" value={data.categories[0].members[3]} onChange={(e) => handleChangeItem(e.target.value, 0, 3)} />
+              <input type="text" maxLength={15} value={data.categories[0].members[3]} onChange={(e) => handleChangeItem(e.target.value, 0, 3)} />
             </label>
           </div>
         </div>
         <div className="category-form-wrapper">
           <label>
             <h4>Title</h4>
-            <input type="text" value={data.categories[1].title} onChange={(e) => handleChangeTitle(e.target.value, 1)} />
+            <input type="text" maxLength={50} value={data.categories[1].title} onChange={(e) => handleChangeTitle(e.target.value, 1)} />
           </label>
           <div className="category-items-wrapper">
             <label>
               <h4>Item 1</h4>
-              <input type="text" value={data.categories[1].members[0]} onChange={(e) => handleChangeItem(e.target.value, 1, 0)} />
+              <input type="text" maxLength={15} value={data.categories[1].members[0]} onChange={(e) => handleChangeItem(e.target.value, 1, 0)} />
             </label>
             <label>
               <h4>Item 2</h4>
-              <input type="text" value={data.categories[1].members[1]} onChange={(e) => handleChangeItem(e.target.value, 1, 1)} />
+              <input type="text" maxLength={15} value={data.categories[1].members[1]} onChange={(e) => handleChangeItem(e.target.value, 1, 1)} />
             </label>
             <label>
               <h4>Item 3</h4>
-              <input type="text" value={data.categories[1].members[2]} onChange={(e) => handleChangeItem(e.target.value, 1, 2)} />
+              <input type="text" maxLength={15} value={data.categories[1].members[2]} onChange={(e) => handleChangeItem(e.target.value, 1, 2)} />
             </label>
             <label>
               <h4>Item 4</h4>
-              <input type="text" value={data.categories[1].members[3]} onChange={(e) => handleChangeItem(e.target.value, 1, 3)} />
+              <input type="text" maxLength={15} value={data.categories[1].members[3]} onChange={(e) => handleChangeItem(e.target.value, 1, 3)} />
             </label>
           </div>
         </div>
         <div className="category-form-wrapper">
           <label>
             <h4>Title</h4>
-            <input type="text" value={data.categories[2].title} onChange={(e) => handleChangeTitle(e.target.value, 2)} />
+            <input type="text" maxLength={50} value={data.categories[2].title} onChange={(e) => handleChangeTitle(e.target.value, 2)} />
           </label>
           <div className="category-items-wrapper">
             <label>
               <h4>Item 1</h4>
-              <input type="text" value={data.categories[2].members[0]} onChange={(e) => handleChangeItem(e.target.value, 2, 0)} />
+              <input type="text" maxLength={15} value={data.categories[2].members[0]} onChange={(e) => handleChangeItem(e.target.value, 2, 0)} />
             </label>
             <label>
               <h4>Item 2</h4>
-              <input type="text" value={data.categories[2].members[1]} onChange={(e) => handleChangeItem(e.target.value, 2, 1)} />
+              <input type="text" maxLength={15} value={data.categories[2].members[1]} onChange={(e) => handleChangeItem(e.target.value, 2, 1)} />
             </label>
             <label>
               <h4>Item 3</h4>
-              <input type="text" value={data.categories[2].members[2]} onChange={(e) => handleChangeItem(e.target.value, 2, 2)} />
+              <input type="text" maxLength={15} value={data.categories[2].members[2]} onChange={(e) => handleChangeItem(e.target.value, 2, 2)} />
             </label>
             <label>
               <h4>Item 4</h4>
-              <input type="text" value={data.categories[2].members[3]} onChange={(e) => handleChangeItem(e.target.value, 2, 3)} />
+              <input type="text" maxLength={15} value={data.categories[2].members[3]} onChange={(e) => handleChangeItem(e.target.value, 2, 3)} />
             </label>
           </div>
         </div>
         <div className="category-form-wrapper">
           <label>
             <h4>Title</h4>
-            <input type="text" value={data.categories[3].title} onChange={(e) => handleChangeTitle(e.target.value, 3)} />
+            <input type="text" maxLength={50} value={data.categories[3].title} onChange={(e) => handleChangeTitle(e.target.value, 3)} />
           </label>
           <div className="category-items-wrapper">
             <label>
               <h4>Item 1</h4>
-              <input type="text" value={data.categories[3].members[0]} onChange={(e) => handleChangeItem(e.target.value, 3, 0)} />
+              <input type="text" maxLength={15} value={data.categories[3].members[0]} onChange={(e) => handleChangeItem(e.target.value, 3, 0)} />
             </label>
             <label>
               <h4>Item 2</h4>
-              <input type="text" value={data.categories[3].members[1]} onChange={(e) => handleChangeItem(e.target.value, 3, 1)} />
+              <input type="text" maxLength={15} value={data.categories[3].members[1]} onChange={(e) => handleChangeItem(e.target.value, 3, 1)} />
             </label>
             <label>
               <h4>Item 3</h4>
-              <input type="text" value={data.categories[3].members[2]} onChange={(e) => handleChangeItem(e.target.value, 3, 2)} />
+              <input type="text" maxLength={15} value={data.categories[3].members[2]} onChange={(e) => handleChangeItem(e.target.value, 3, 2)} />
             </label>
             <label>
               <h4>Item 4</h4>
-              <input type="text" value={data.categories[3].members[3]} onChange={(e) => handleChangeItem(e.target.value, 3, 3)} />
+              <input type="text" maxLength={15} value={data.categories[3].members[3]} onChange={(e) => handleChangeItem(e.target.value, 3, 3)} />
             </label>
           </div>
         </div>
@@ -195,7 +199,7 @@ export default function Home() {
       {slug ?
         <div className="game-link" ref={linkRef}>
           <h3>Here&apos;s your game link!</h3>
-          <input type="text" readOnly value={URL + slug}/>
+          <input type="text" readOnly value={URL + slug} />
           <button onClick={copyToClipboard}>Copy Link</button>
         </div>
         :

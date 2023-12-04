@@ -90,6 +90,14 @@ input {
   text-align: center;
 }
 
+.container-header {
+  padding: 0 20px;
+  a {
+    color: $green;
+    text-decoration: underline;
+  }
+}
+
 .category-form-wrapper {
   border-radius: 3px;
   padding: 10px;
@@ -265,6 +273,8 @@ input {
   justify-content: center;
   flex-wrap: wrap;
   cursor: pointer;
+  overflow: hidden;
+  word-break: break-word;
 
   &.selected {
     color: white;
@@ -461,6 +471,40 @@ input {
 
   .nav-button {
     width: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+  }
+
+  .header {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .title {
+    margin: 20px 0;
+    flex-direction: column;
+
+    h1 {
+      margin: 0;
+      line-height: 42px;
+    }
+
+    h2 {
+      line-height: 28px;
+    }
+  }
+
+  .connections-wrapper {
+    width: 100%;
+  }
+
+  .item {
+    width: 23%;
+    margin: 1%;
   }
 }
 

@@ -33,7 +33,7 @@ function App({ params: { slug } }: {
         :
         <>
           {gameData ?
-            <Connections gameData={gameData} />
+            <Connections gameData={gameData} slug={slug} />
             :
             <div className='page-wrapper'>
               <div className="error-page">
