@@ -4,6 +4,8 @@ import { GameData } from './types';
 import { addGame } from '../firebase/firebase';
 import './App.scss'
 
+const URL = "https://custom-connections-game.vercel.app/";
+
 export default function Home() {
   const [slug, setSlug] = useState<string>("");
   const [data, setData] = useState<GameData>({
@@ -78,7 +80,7 @@ export default function Home() {
 
   const copyToClipboard = (e: SyntheticEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText("http://localhost:3000/"+slug);
+    navigator.clipboard.writeText(URL+slug);
   }
 
   // console.log(data);
@@ -193,7 +195,7 @@ export default function Home() {
       {slug ?
         <div className="game-link" ref={linkRef}>
           <h3>Here&apos;s your game link!</h3>
-          <input type="text" readOnly value={"http://localhost:3000/" + slug}/>
+          <input type="text" readOnly value={URL + slug}/>
           <button onClick={copyToClipboard}>Copy Link</button>
         </div>
         :
