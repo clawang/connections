@@ -6,54 +6,6 @@ import Link from 'next/link';
 import Connections from './connections';
 import '../App.scss';
 
-const games = [
-  [
-    {
-      level: 0,
-      title: "ROOMMATES",
-      members: ["Abraham", "Will", "Brian", "Roberto"]
-    },
-    {
-      level: 1,
-      title: "FAMILY",
-      members: ["Alex", "Leyla", "Apol", "Moe"]
-    },
-    {
-      level: 2,
-      title: "COUSINS",
-      members: ["Tara", "Kelly", "Mei Mei", "Andrew"]
-    },
-    {
-      level: 3,
-      title: "FRIENDS",
-      members: ["Rosy", "Tyler", "Calvin", "Justin"]
-    },
-  ],
-  [
-    {
-      level: 0,
-      title: "PEOPLE WHO HAVE LIVED IN SAN FRANCISCO",
-      members: ["Claire", "Salima", "Jackie", "Raymond"]
-    },
-    {
-      level: 1,
-      title: "PEOPLE WHO WENT TO SEA",
-      members: ["Tim", "Klem", "Julie", "Anya"]
-    },
-    {
-      level: 2,
-      title: "PEOPLE WHO GO UPSTATE",
-      members: ["KLi", "Taylor", "Kevin", "Alexis"]
-    },
-    {
-      level: 3,
-      title: "PEOPLE WHO HAVE BEEN NAKED IN HERALD",
-      members: ["Camilla", "Kwang", "Le", "Roju"]
-
-    },
-  ],
-];
-
 function App({ params: { slug } }: {
   params: { slug: string }
 }) {

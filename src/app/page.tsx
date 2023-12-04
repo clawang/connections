@@ -29,7 +29,7 @@ export default function Home() {
     ],
     title: "",
   });
-  const linkRef = useRef();
+  const linkRef = useRef(null);
 
   useEffect(() => {
     if (slug && linkRef.current) {
@@ -74,6 +74,11 @@ export default function Home() {
     } else {
       alert('Not all fields are filled out!');
     }
+  }
+
+  const copyToClipboard = (e: SyntheticEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText("http://localhost:3000/"+slug);
   }
 
   // console.log(data);
@@ -187,8 +192,9 @@ export default function Home() {
       </form>
       {slug ?
         <div className="game-link" ref={linkRef}>
-          <h3>Here's your game link!</h3>
+          <h3>Here&apos;s your game link!</h3>
           <input type="text" readOnly value={"http://localhost:3000/" + slug}/>
+          <button onClick={copyToClipboard}>Copy Link</button>
         </div>
         :
         <></>
