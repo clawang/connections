@@ -1,17 +1,12 @@
-import { collection, doc, updateDoc, addDoc, getDoc, DocumentReference, FirestoreError } from 'firebase/firestore';
-import { firebase_app, database } from "./config";
+import { collection, doc, addDoc, getDoc, DocumentReference, DocumentData, FirestoreError, QueryDocumentSnapshot, SnapshotOptions, } from 'firebase/firestore';
+import { database } from "./config";
 import { GameData } from '../app/types';
-
-export interface FriendType {
-    username: string | null;
-    uid: string | null;
-}
 
 const dbInstance = collection(database, 'connections');
 
-export async function addGame(data: GameData): Promise<{result: DocumentReference, error: FirestoreError|undefined}> {
+export async function addGame(data: GameData): Promise<{ result: DocumentReference, error: FirestoreError | undefined }> {
     let result, error;
-    
+
     result = await addDoc(dbInstance, data).catch((e) => error = e);
 
     if (error) {
@@ -20,26 +15,27 @@ export async function addGame(data: GameData): Promise<{result: DocumentReferenc
     return { result, error };
 }
 
-export async function getDataFromSlug(slug: string): Promise<{result: GameData|null, error: string}> {
+export async function getDataFromSlug(slug: string): Promise<{ result: GameData | null, error: string }> {
     const ref = doc(database, "connections", slug).withConverter(dataConverter);
     const document = await getDoc(ref);
     const data = document.data();
 
     if (data) {
-        return {result: data, error: ""};
+        return { result: data, error: "" };
     } else {
-        return {result: null, error: "Error."};
+        return { result: null, error: "Error." };
     }
 }
 
 const dataConverter = {
-    toFirestore: (event) => {
+    toFirestore: (data: GameData): DocumentData => {
         return {
-            username: event.username,
-            uid: event.uid
+            categories: data.categories,
+            title: data.title
         };
     },
-    fromFirestore: (snapshot, options) => {
+    fromFirestore: (snapshot: QueryDocumentSnapshot,
+        options: SnapshotOptions) => {
         const data = snapshot.data(options);
         return { categories: data.categories, title: data.title } as GameData;
     }
