@@ -60,6 +60,7 @@ button {
   cursor: pointer;
   border: black solid 1px;
   background: white;
+  color: black;
 }
 
 form {
@@ -507,6 +508,15 @@ input {
 
   .connections-wrapper {
     width: 100%;
+  }
+
+  .row-complete-wrapper {
+    width: 98%;
+    margin: 1%;
+
+    h3, p {
+    font-size: 16px;
+    }
   }
 
   .item {
