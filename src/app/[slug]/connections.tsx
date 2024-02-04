@@ -251,11 +251,12 @@ function PopUp({ state, title, history, slug, popup, setPopup }: {
     popup: boolean,
     setPopup: (popup: boolean) => void,
 }) {
+    const [buttonState, setButtonState] = useState<number>(0);
 
     const classNames = ["yellow", "green", "blue", "purple"];
     const emojis = ["🟨", "🟩", "🟦", "🟪"];
 
-    const copyToClipboard = () => {
+    const share = () => {
         let text = "Connections: " + title + "\n";
         for (const row of history) {
             for (const item of row) {
@@ -264,7 +265,13 @@ function PopUp({ state, title, history, slug, popup, setPopup }: {
             text += "\n";
         }
         text += URL + slug;
-        navigator.clipboard.writeText(text);
+        if (navigator.share && navigator.canShare({text})) {
+            navigator.share({text});
+        } else {
+            navigator.clipboard.writeText(text);
+            setButtonState(1);
+            setTimeout(() => setButtonState(0), 1000);
+        }
     }
 
     return (
@@ -285,7 +292,7 @@ function PopUp({ state, title, history, slug, popup, setPopup }: {
                 <div id="emoji-recap">
                     {history.map((round, index) => <div key={index} className="emoji-row">{round.map((item, index) => <div key={index} className={"emoji " + classNames[item.level]}></div>)}</div>)}
                 </div>
-                <button onClick={copyToClipboard}>Share Your Results</button>
+                <button onClick={share}>{buttonState === 0 ? "Share Your Results" : "Copied to Clipboard"}</button>
             </div>
         </div>
     );
