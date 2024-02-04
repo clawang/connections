@@ -24,6 +24,7 @@ $yellow: #f9df6d;
 $green: #a0c35a;
 $blue: #b0c4ef;
 $purple: #ba81c5;
+$disabled: #7f7f7f;
 
 h1 {
   font-family: 'Karnak Condensed', serif;
@@ -94,19 +95,74 @@ input {
 
 .container-header {
   padding: 0 20px;
+
   a {
     color: $green;
     text-decoration: underline;
   }
 }
 
+.instructions {
+  text-align: left;
+  width: 150px;
+  margin: 20px auto 0;
+}
+
+.help-emojis {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  >div {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+  }
+}
+
+.help-emoji {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  border-radius: 2px;
+  margin-bottom: 1.5px;
+
+  &.group-0 {
+    background: $yellow;
+  }
+
+  &.group-1 {
+    background: $green;
+  }
+
+  &.group-2 {
+    background: $blue;
+  }
+
+  &.group-3 {
+    background: $purple;
+  }
+}
+
+#help-arrow {
+  height: 2.2rem;
+  left: 2.6rem;
+  bottom: 1.4rem;
+  position: absolute;
+}
+
 .category-form-wrapper {
   border-radius: 3px;
   padding: 10px;
   margin: 5px 0;
+  position: relative;
 
   label {
     padding: 5px;
+  }
+
+  >label {
+    width: 90%;
   }
 
   &:nth-of-type(1) {
@@ -123,6 +179,29 @@ input {
 
   &:nth-of-type(4) {
     background: $purple;
+  }
+}
+
+.order-buttons {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+
+  button {
+    background: black;
+    color: white;
+    margin: 2px;
+    min-width: 0;
+    height: auto;
+    padding: 3px 7px;
+    font-size: 12px;
+    border-radius: 3px;
+
+    &:disabled {
+      background: $disabled;
+      border-color: $disabled;
+      cursor:not-allowed;
+    }
   }
 }
 
@@ -515,8 +594,9 @@ input {
     width: 98%;
     margin: 1%;
 
-    h3, p {
-    font-size: 16px;
+    h3,
+    p {
+      font-size: 16px;
     }
   }
 
@@ -527,6 +607,7 @@ input {
 }
 
 @keyframes shake {
+
   0%,
   100% {
     transform: translatex(0);

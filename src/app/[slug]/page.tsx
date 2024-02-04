@@ -19,7 +19,9 @@ function App({ params: { slug } }: {
   const getData = async () => {
     const data = await getDataFromSlug(slug);
     if (data.result) {
+      console.log(data.result);
       setData(data.result);
+      document.title = "Connections: " + data.result.title;
     }
     setLoading(false);
   }
