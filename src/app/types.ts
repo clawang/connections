@@ -1,6 +1,7 @@
 export interface GameData {
     categories: Array<GameLevel>;
     title: string;
+    time_created?: Date|null;
 }
 
 export interface GameLevel {

@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, SyntheticEvent, MouseEvent } from 'react';
 import { GameData } from './types';
-import { addGame } from '../firebase/firebase';
+import { addGame, updateGame } from '../firebase/firebase';
 import './App.scss'
 
 const URL = "https://custom-connections-game.vercel.app/";
@@ -30,6 +30,7 @@ export default function Home() {
       },
     ],
     title: "",
+    time_created: null,
   });
   const [buttonState, setButtonState] = useState<number>(0);
   const linkRef = useRef(null);
@@ -95,9 +96,14 @@ export default function Home() {
       filled = false;
     }
     if (filled) {
-      const { result, error } = await addGame(data);
-      // console.log(result);
-      setSlug(result.id);
+      const dataToSubmit = {...data, time_created: new Date()};
+      if (slug) {
+        await updateGame(slug, dataToSubmit);
+      } else {
+        const { result, error } = await addGame(dataToSubmit);
+        // console.log(result);
+        setSlug(result.id);
+      }
     } else {
       alert('Not all fields are filled out!');
     }
@@ -110,7 +116,7 @@ export default function Home() {
     setTimeout(() => setButtonState(0), 1000);
   }
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="container">
@@ -175,7 +181,7 @@ export default function Home() {
           handleChangeTitle={handleChangeTitle}
           handleChangeItem={handleChangeItem}
         />
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>{slug ? "Update" : "Submit"}</button>
       </form>
       {slug ?
         <div className="game-link" ref={linkRef}>

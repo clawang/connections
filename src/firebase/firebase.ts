@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDoc, DocumentReference, DocumentData, FirestoreError, QueryDocumentSnapshot, SnapshotOptions, } from 'firebase/firestore';
+import { collection, doc, addDoc, setDoc, getDoc, DocumentReference, DocumentData, FirestoreError, QueryDocumentSnapshot, SnapshotOptions, } from 'firebase/firestore';
 import { database } from "./config";
 import { GameData } from '../app/types';
 
@@ -13,6 +13,10 @@ export async function addGame(data: GameData): Promise<{ result: DocumentReferen
         console.log(error);
     }
     return { result, error };
+}
+
+export async function updateGame(slug: string, data: GameData): Promise<void> {
+    await setDoc(doc(database, "connections", slug), data);
 }
 
 export async function getDataFromSlug(slug: string): Promise<{ result: GameData | null, error: string }> {
