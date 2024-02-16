@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Custom Connections',
-  description: 'Create your own custom version of the NYT Connections.',
+  description: 'Create your own custom version of the NYT Connections game.',
 }
 
 export default function RootLayout({
@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
+        <title>Custom Connections</title>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <body className={inter.className}>
