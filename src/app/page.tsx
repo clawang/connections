@@ -13,20 +13,20 @@ export default function Home() {
       {
         title: "",
         level: 0,
-        members: []
+        members: ["", "", "", ""]
       },
       {
         title: "",
         level: 1,
-        members: []
+        members: ["", "", "", ""]
       }, {
         title: "",
         level: 2,
-        members: []
+        members: ["", "", "", ""]
       }, {
         title: "",
         level: 3,
-        members: []
+        members: ["", "", "", ""]
       },
     ],
     title: "",
@@ -96,7 +96,7 @@ export default function Home() {
       filled = false;
     }
     if (filled) {
-      const dataToSubmit = {...data, time_created: new Date()};
+      const dataToSubmit = { ...data, time_created: new Date() };
       if (slug) {
         await updateGame(slug, dataToSubmit);
       } else {
@@ -187,7 +187,10 @@ export default function Home() {
         <div className="game-link" ref={linkRef}>
           <h3>Here&apos;s your game link!</h3>
           <input type="text" readOnly value={URL + slug} />
-          <button onClick={copyToClipboard}>{buttonState === 0 ? "Copy Link" : "Copied!"}</button>
+          <div className="buttons-wrapper">
+            <button onClick={copyToClipboard}>{buttonState === 0 ? "Copy Link" : "Copied!"}</button>
+            <button onClick={() => window.open("https://custom-connections-game.vercel.app/" + slug, "_blank")}>Go to Game</button>
+          </div>
         </div>
         :
         <></>
