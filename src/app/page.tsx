@@ -33,6 +33,7 @@ export default function Home() {
     time_created: null,
   });
   const [buttonState, setButtonState] = useState<number>(0);
+  const [submitted, setSubmitted] = useState<boolean>(false);
   const linkRef = useRef(null);
 
   useEffect(() => {
@@ -99,7 +100,8 @@ export default function Home() {
       const dataToSubmit = { ...data, time_created: new Date() };
       if (slug) {
         await updateGame(slug, dataToSubmit);
-      } else {
+      } else if(!submitted) {
+        setSubmitted(true);
         const { result, error } = await addGame(dataToSubmit);
         // console.log(result);
         setSlug(result.id);
@@ -183,6 +185,12 @@ export default function Home() {
         />
         <button onClick={handleSubmit}>{slug ? "Update" : "Submit"}</button>
       </form>
+      {
+        (submitted && !slug) ?
+        <p>Loading...</p>
+        :
+        <></>
+      }
       {slug ?
         <div className="game-link" ref={linkRef}>
           <h3>Here&apos;s your game link!</h3>
