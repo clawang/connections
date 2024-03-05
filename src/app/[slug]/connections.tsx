@@ -12,6 +12,7 @@ function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
     const [numSelected, setNumSelected] = useState(0);
     const [mistakes, setMistakes] = useState(4);
     const [gameState, setGameState] = useState(0); // 0 playing, 1 is lost, 2 is won
+    const [submitted, setSubmitted] = useState(false);
 
     // manage UI
     const [toast, setToast] = useState("");
@@ -91,11 +92,16 @@ function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
         }
         setMistakes(mistakes - 1);
         setToast("");
+        setSubmitted(false);
     }
 
     const checkSubmit = () => {
+        if (submitted) {
+            return;
+        }
+        setSubmitted(true);
         let selected: Array<GameItem> = [];
-        let levelsSelected = [0,0,0,0];
+        let levelsSelected = [0, 0, 0, 0];
         let allCorrect = true;
         let level = -1;
         const newItems = [...items];
@@ -122,6 +128,7 @@ function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
             }
             setItems(newItems);
             setNumSelected(0);
+            setSubmitted(false);
         } else {
             let oneAway = false;
             levelsSelected.forEach(count => {
@@ -148,7 +155,7 @@ function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
     }, [completed]);
 
     const revealAnswer = (index: number) => {
-        setAnswerIndex(answerIndex+1);
+        setAnswerIndex(answerIndex + 1);
         if (completed.findIndex(row => row.level === index) < 0) {
             const newItems = [...items];
             newItems.sort((a, b) => {
@@ -162,7 +169,7 @@ function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
             setCompleted([...completed, gameData.categories[index]]);
             setItems(newItems);
         } else {
-            revealAnswer(index+1);
+            revealAnswer(index + 1);
         }
     }
 
@@ -176,7 +183,7 @@ function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
     return (
         <>
             <div id="toast" className={toast.length > 0 ? "show" : ""}><p>{toast}</p></div>
-            <PopUp state={gameState} title={gameData.title} history={history} slug={slug} popup={popup} setPopup={setPopup} />
+            <PopUp state={gameState} mistakes={mistakes} title={gameData.title} history={history} slug={slug} popup={popup} setPopup={setPopup} />
             <div className="header">
                 <div className="title">
                     <h1>Connections</h1>
@@ -243,8 +250,9 @@ function Item({ data, onSelect }: { data: GameItem, onSelect: () => void }) {
     );
 }
 
-function PopUp({ state, title, history, slug, popup, setPopup }: {
+function PopUp({ state, mistakes, title, history, slug, popup, setPopup }: {
     state: number,
+    mistakes: number,
     title: string,
     history: Array<Array<GameItem>>,
     slug: string,
@@ -265,8 +273,8 @@ function PopUp({ state, title, history, slug, popup, setPopup }: {
             text += "\n";
         }
         text += URL + slug;
-        if (navigator.share && navigator.canShare({text})) {
-            navigator.share({text});
+        if (navigator.share && navigator.canShare({ text })) {
+            navigator.share({ text });
         } else {
             navigator.clipboard.writeText(text);
             setButtonState(1);
@@ -281,7 +289,11 @@ function PopUp({ state, title, history, slug, popup, setPopup }: {
                 {
                     state === 2 ?
                         <>
-                            <h2>Great!</h2>
+                            {mistakes === 4 ?
+                                <h2>Perfect!</h2>
+                                :
+                                <h2>Great!</h2>
+                            }
                         </>
                         :
                         <>
