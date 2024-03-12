@@ -363,6 +363,8 @@ input {
   cursor: pointer;
   overflow: hidden;
   word-break: break-word;
+  text-overflow: ellipsis;
+  padding: 0 4px;
 
   &.selected {
     color: white;
@@ -603,6 +605,7 @@ input {
   .item {
     width: 23%;
     margin: 1%;
+    font-size: 13px;
   }
 }
 

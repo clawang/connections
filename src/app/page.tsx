@@ -229,19 +229,19 @@ function CategoryForm({ data, level, moveUp, moveDown, handleChangeTitle, handle
       <div className="category-items-wrapper">
         <label>
           <h4>Item 1</h4>
-          <input type="text" maxLength={15} value={data.categories[level].members[0]} onChange={(e) => handleChangeItem(e.target.value, level, 0)} />
+          <input type="text" maxLength={30} value={data.categories[level].members[0]} onChange={(e) => handleChangeItem(e.target.value, level, 0)} />
         </label>
         <label>
           <h4>Item 2</h4>
-          <input type="text" maxLength={15} value={data.categories[level].members[1]} onChange={(e) => handleChangeItem(e.target.value, level, 1)} />
+          <input type="text" maxLength={30} value={data.categories[level].members[1]} onChange={(e) => handleChangeItem(e.target.value, level, 1)} />
         </label>
         <label>
           <h4>Item 3</h4>
-          <input type="text" maxLength={15} value={data.categories[level].members[2]} onChange={(e) => handleChangeItem(e.target.value, level, 2)} />
+          <input type="text" maxLength={30} value={data.categories[level].members[2]} onChange={(e) => handleChangeItem(e.target.value, level, 2)} />
         </label>
         <label>
           <h4>Item 4</h4>
-          <input type="text" maxLength={15} value={data.categories[level].members[3]} onChange={(e) => handleChangeItem(e.target.value, level, 3)} />
+          <input type="text" maxLength={30} value={data.categories[level].members[3]} onChange={(e) => handleChangeItem(e.target.value, level, 3)} />
         </label>
       </div>
     </div>
