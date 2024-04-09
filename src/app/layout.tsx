@@ -2,7 +2,12 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { CSPostHogProvider } from './providers'
 import Head from 'next/head';
+import dynamic from 'next/dynamic'
 import './globals.css'
+
+const PostHogPageView = dynamic(() => import('./PostHogPageView'), {
+  ssr: false,
+})
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,6 +29,7 @@ export default function RootLayout({
       </Head>
       <CSPostHogProvider>
         <body className={inter.className}>
+          <PostHogPageView />
           {children}
         </body>
       </CSPostHogProvider>
