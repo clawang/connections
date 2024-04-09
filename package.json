@@ -12,6 +12,7 @@
     "@vercel/analytics": "^1.1.4",
     "firebase": "^10.7.0",
     "next": "14.0.3",
+    "posthog-js": "^1.120.2",
     "react": "^18",
     "react-dom": "^18",
     "sass": "^1.69.5"
