@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { CSPostHogProvider } from './providers'
 import Head from 'next/head';
 import dynamic from 'next/dynamic'
+import Script from 'next/script'
 import './globals.css'
 
 const PostHogPageView = dynamic(() => import('./PostHogPageView'), {
@@ -26,6 +27,8 @@ export default function RootLayout({
       <Head>
         <title>Custom Connections</title>
         <link rel="shortcut icon" href="/favicon.ico" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7330339350575374"
+          crossOrigin="anonymous"></script>
       </Head>
       <CSPostHogProvider>
         <body className={inter.className}>
