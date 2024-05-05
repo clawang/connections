@@ -27,17 +27,17 @@ export default function RootLayout({
       <Head>
         <title>Custom Connections</title>
         <link rel="shortcut icon" href="/favicon.ico" />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7330339350575374"
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
       </Head>
       <CSPostHogProvider>
         <body className={inter.className}>
           <PostHogPageView />
           {children}
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7330339350575374"
+            crossOrigin="anonymous"
+            strategy="lazyOnload"
+          />
         </body>
       </CSPostHogProvider>
     </html>
