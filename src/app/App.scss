@@ -151,6 +151,18 @@ input {
   position: absolute;
 }
 
+.author {
+
+  h4 {
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  div {
+    padding: 10px;
+  }
+}
+
 .category-form-wrapper {
   border-radius: 3px;
   padding: 10px;
@@ -226,7 +238,7 @@ input {
 }
 
 .header {
-  padding: 24px;
+  padding: 24px 24px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -235,13 +247,6 @@ input {
 
   h1 {
     margin-right: 16px;
-  }
-
-  h2 {
-    font-family: 'Franklin Light', sans-serif;
-    display: inline-block;
-    font-size: 28px;
-    font-weight: 300;
   }
 
   img {
@@ -253,6 +258,28 @@ input {
   .title {
     display: flex;
     align-items: center;
+  }
+}
+
+.game-title {
+  margin: 10px 0 30px;
+
+  h2, h3 {
+    font-family: 'Franklin Light', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: $blue;
   }
 }
 
@@ -570,17 +597,20 @@ input {
   }
 
   .header {
+    padding: 15px;
     width: 100%;
-    flex-direction: column;
+    // flex-direction: column;
   }
 
   .title {
-    margin: 20px 0;
+    margin: 0;
+    text-align: left;
     flex-direction: column;
 
     h1 {
       margin: 0;
-      line-height: 42px;
+      line-height: 24px;
+      font-size: 24px;
     }
 
     h2 {

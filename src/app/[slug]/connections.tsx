@@ -186,10 +186,25 @@ function Connections({ gameData, slug }: { gameData: GameData, slug: string }) {
             <PopUp state={gameState} mistakes={mistakes} title={gameData.title} history={history} slug={slug} popup={popup} setPopup={setPopup} />
             <div className="header">
                 <div className="title">
-                    <h1>Connections</h1>
-                    <h2>{gameData.title}</h2>
+                    <h1>Custom Connections</h1>
                 </div>
-                <div className="nav-button"><Link href="/">Create new game</Link></div>
+                <div className="nav-button"><Link href="/">New game</Link></div>
+            </div>
+            <div className="game-title">
+                <h2>{gameData.title}</h2>
+                <h3>
+                    {
+                        gameData.author ?
+                            <>by {
+                                gameData.author.link ?
+                                    <a href={gameData.author.link} target="_blank">{gameData.author.name}</a>
+                                    :
+                                    gameData.author.name
+                            }</>
+                            :
+                            ""
+                    }
+                </h3>
             </div>
             <p>Create four groups of four!</p>
             <div className="connections-wrapper">

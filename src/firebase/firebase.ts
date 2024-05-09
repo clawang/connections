@@ -1,6 +1,6 @@
 import { collection, doc, addDoc, setDoc, getDoc, DocumentReference, DocumentData, FirestoreError, QueryDocumentSnapshot, SnapshotOptions, } from 'firebase/firestore';
 import { database } from "./config";
-import { GameData } from '../app/types';
+import { GameData, GameAuthor } from '../app/types';
 
 const dbInstance = collection(database, 'connections');
 
@@ -33,14 +33,29 @@ export async function getDataFromSlug(slug: string): Promise<{ result: GameData 
 
 const dataConverter = {
     toFirestore: (data: GameData): DocumentData => {
-        return {
+        let result: DocumentData = {
             categories: data.categories,
-            title: data.title
+            title: data.title,
         };
+        if (data.author) {
+            result['author'] = {
+                name: data.author.name,
+                link: data.author.link
+            };
+        }
+        return result;
     },
     fromFirestore: (snapshot: QueryDocumentSnapshot,
         options: SnapshotOptions) => {
         const data = snapshot.data(options);
-        return { categories: data.categories, title: data.title } as GameData;
+        let result = { categories: data.categories, title: data.title, author: data.author } as GameData;
+        if (data.author) {
+            let author: GameAuthor = { name: data.author.name };
+            if (data.author.link) {
+                author.link = data.author.link;
+            }
+            result.author = author;
+        }
+        return result;
     }
 };

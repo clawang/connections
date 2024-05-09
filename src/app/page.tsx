@@ -30,6 +30,10 @@ export default function Home() {
       },
     ],
     title: "",
+    author: {
+      name: "",
+      link: ""
+    },
     time_created: null,
   });
   const [buttonState, setButtonState] = useState<number>(0);
@@ -100,7 +104,7 @@ export default function Home() {
       const dataToSubmit = { ...data, time_created: new Date() };
       if (slug) {
         await updateGame(slug, dataToSubmit);
-      } else if(!submitted) {
+      } else if (!submitted) {
         setSubmitted(true);
         const { result, error } = await addGame(dataToSubmit);
         // console.log(result);
@@ -147,10 +151,19 @@ export default function Home() {
       </div>
       <form>
         <label>
-          <h3>Title</h3>
+          <h3>Title*</h3>
           <input type="text" maxLength={30} value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
         </label>
-        <h3>Categories</h3>
+        <label className="author">
+          <h3>Author</h3>
+          <div>
+            <h4>Name</h4>
+            <input type="text" maxLength={30} value={data.author!.name} onChange={(e) => setData({ ...data, author: {...data.author, name: e.target.value }})} />
+            <h4>Link</h4>
+            <input type="text" maxLength={30} value={data.author!.link!} onChange={(e) => setData({ ...data, author: {name: data.author!.name, link: e.target.value }})} />
+          </div>
+        </label>
+        <h3>Categories*</h3>
         <CategoryForm
           data={data}
           level={0}
@@ -187,9 +200,9 @@ export default function Home() {
       </form>
       {
         (submitted && !slug) ?
-        <p>Loading...</p>
-        :
-        <></>
+          <p>Loading...</p>
+          :
+          <></>
       }
       {slug ?
         <div className="game-link" ref={linkRef}>

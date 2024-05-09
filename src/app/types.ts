@@ -1,7 +1,13 @@
 export interface GameData {
     categories: Array<GameLevel>;
     title: string;
+    author?: GameAuthor|null;
     time_created?: Date|null;
+}
+
+export interface GameAuthor {
+    name: string;
+    link?: string|null;
 }
 
 export interface GameLevel {
