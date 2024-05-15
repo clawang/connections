@@ -155,12 +155,12 @@ export default function Home() {
           <input type="text" maxLength={30} value={data.title} onChange={(e) => setData({ ...data, title: e.target.value })} />
         </label>
         <label className="author">
-          <h3>Author</h3>
+          <h3>Author (optional)</h3>
           <div>
             <h4>Name</h4>
             <input type="text" maxLength={30} value={data.author!.name} onChange={(e) => setData({ ...data, author: {...data.author, name: e.target.value }})} />
-            <h4>Link</h4>
-            <input type="text" maxLength={30} value={data.author!.link!} onChange={(e) => setData({ ...data, author: {name: data.author!.name, link: e.target.value }})} />
+            <h4>URL</h4>
+            <input type="text" value={data.author!.link!} onChange={(e) => setData({ ...data, author: {name: data.author!.name, link: e.target.value }})} />
           </div>
         </label>
         <h3>Categories*</h3>
